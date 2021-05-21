@@ -30,6 +30,12 @@ a, .btn-link {
     color: red;
 }
 
+.top-menu {
+    justify-content: center;
+    width: 100%;
+    display:flex;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -48,3 +54,4 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
