@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlazorBattles.Shared
 {
-    public class Units
+    public class Unit
     {
         public int Id { get; set; }
 
