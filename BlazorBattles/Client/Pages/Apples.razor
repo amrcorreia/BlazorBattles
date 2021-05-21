@@ -1,0 +1,23 @@
+﻿@page "/apples"
+@inject BlazorBattles.Client.Services.ApplesService.IApplesService ApplesService
+
+<h3>Apples</h3>
+<div>
+    <button class="btn btn-outline-dark" @onclick="() => EatApples(5)">Eat Apples</button>
+</div>
+<div>
+    <button class="btn btn-outline-success" @onclick="() => AddApples(5)">Add Apples</button>
+</div>
+
+@code {
+
+    private void EatApples(int amount)
+    {
+        ApplesService.EatApples(amount);
+    }
+
+    private void AddApples(int amount)
+    {
+        ApplesService.AddApples(amount);
+    }   
+}
