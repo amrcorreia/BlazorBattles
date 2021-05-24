@@ -1,10 +1,13 @@
 ﻿@inject BlazorBattles.Client.Services.ApplesService.IApplesService ApplesService
 @implements IDisposable
 
-<div class="top-menu">
-    <img src="icons/C_Hat01.png" /> <span class="popover-header">@ApplesService.Apples</span>
-
-</div>
+<AuthorizeView>
+    <Authorized>
+        <div class="top-menu">
+            <img src="icons/C_Hat01.png" /> <span class="popover-header">@ApplesService.Apples</span>
+        </div>
+    </Authorized>
+</AuthorizeView>
 
 @code {
     protected override void OnInitialized()

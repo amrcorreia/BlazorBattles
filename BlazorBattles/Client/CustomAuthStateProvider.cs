@@ -12,6 +12,7 @@ namespace BlazorBattles.Client
         public override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             //return Task.FromResult(new AuthenticationState(new ClaimsPrincipal()));
+
             var identity = new ClaimsIdentity(
                 new[] { 
                     new Claim(ClaimTypes.Name, "Andreia")
