@@ -19,7 +19,7 @@ namespace BlazorBattles.Shared
         [Required, StringLength(100, MinimumLength = 6)]
         public string Password { get; set; }
         
-        [Compare("Passwoerd", ErrorMessage ="The passwords do not match")]
+        [Compare("Password", ErrorMessage ="The passwords do not match")]
         public string ConfirmPassword { get; set; }
 
         [Range(0, 1000, ErrorMessage = "Please choose a number betbeewn 0 and 1000")]
