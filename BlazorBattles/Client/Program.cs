@@ -1,5 +1,6 @@
 using BlazorBattles.Client.Services;
 using BlazorBattles.Client.Services.ApplesService;
+using BlazorBattles.Client.Services.AuthService;
 using BlazorBattles.Client.Services.UnitService;
 using Blazored.LocalStorage;
 using Blazored.Toast;
@@ -25,6 +26,7 @@ namespace BlazorBattles.Client
             builder.Services.AddScoped<IBananaService, BananaService>();
             builder.Services.AddScoped<IApplesService, ApplesService>();
             builder.Services.AddScoped<IUnitService, UnitService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddOptions();
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
