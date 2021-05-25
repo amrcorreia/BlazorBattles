@@ -1,5 +1,7 @@
 ﻿@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 @inject AuthenticationStateProvider AuthoStateProvider
+@inject BlazorBattles.Client.Services.AuthService.IAuthService AuthService
+@inject IToastService ToastService
 
 
 <p>Please log in below or <NavLink href="register">register</NavLink> for a new account.</p>
@@ -7,8 +9,8 @@
 <EditForm Model="@user" OnValidSubmit="HandleLogin">
     <DataAnnotationsValidator />
     <div class="form-group">
-        <label for="username">Username</label>
-        <InputText id="username" @bind-Value="user.Username" class="form-control" />
+        <label for="email">Email</label>
+        <InputText id="email" @bind-Value="user.Email" class="form-control" />
     </div>
     <div class="form-group">
         <label for="password">Password</label>
@@ -23,7 +25,15 @@
 
     private async void HandleLogin()
     {
-        await LocalStorage.SetItemAsync<bool>("isAuthenticated", true);
-        await AuthoStateProvider.GetAuthenticationStateAsync();
+        var result = await AuthService.Login(user);
+        if (result.Success)
+        {
+            await LocalStorage.SetItemAsync<bool>("isAuthenticated", true);
+            await AuthoStateProvider.GetAuthenticationStateAsync();
+        }
+        else
+        {
+            ToastService.ShowError(result.Message);
+        }
     }
 }
