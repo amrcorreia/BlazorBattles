@@ -20,9 +20,10 @@ namespace BlazorBattles.Client.Services
 
         public event Action OnChange;
 
-        public void AddBananas(int amount)
+        public async Task AddBananas(int amount)
         {
-            Bananas += amount;
+            var result = await _http.PutAsJsonAsync<int>("api/User/AddBananas", amount);
+            Bananas = await result.Content.ReadFromJsonAsync<int>();
             BananasChanged();
         }
 
@@ -32,12 +33,14 @@ namespace BlazorBattles.Client.Services
             BananasChanged();
         }
 
+        
+
+        void BananasChanged() => OnChange.Invoke();
+
         public async Task GetBananas()
         {
             Bananas = await _http.GetFromJsonAsync<int>("api/User/GetBananas");
             BananasChanged();
         }
-
-        void BananasChanged() => OnChange.Invoke();
     }
 }

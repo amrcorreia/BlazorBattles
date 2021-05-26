@@ -30,7 +30,6 @@ namespace BlazorBattles.Client
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             string authToken = await _localStorageService.GetItemAsStringAsync("authToken");
-
             var identity = new ClaimsIdentity();
             _http.DefaultRequestHeaders.Authorization = null;
 
@@ -50,8 +49,7 @@ namespace BlazorBattles.Client
             }
 
             var user = new ClaimsPrincipal(identity);
-            var state = new AuthenticationState(user);            
-
+            var state = new AuthenticationState(user);
             NotifyAuthenticationStateChanged(Task.FromResult(state));
             return state;
         }
@@ -65,14 +63,12 @@ namespace BlazorBattles.Client
             }
             return Convert.FromBase64String(base64);
         }
-
         public IEnumerable<Claim> ParseClaimsFromJwt(string jwt)
         {
             var payload = jwt.Split('.')[1];
             var jsonBytes = ParseBase64WithoutPadding(payload);
             var keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonBytes);
             var claims = keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString()));
-
             return claims;
         }
     }
