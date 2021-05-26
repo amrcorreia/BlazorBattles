@@ -1,6 +1,7 @@
 using BlazorBattles.Client.Services;
 using BlazorBattles.Client.Services.ApplesService;
 using BlazorBattles.Client.Services.AuthService;
+using BlazorBattles.Client.Services.BattleService;
 using BlazorBattles.Client.Services.LeaderboardService;
 using BlazorBattles.Client.Services.LeaderBoardService;
 using BlazorBattles.Client.Services.UnitService;
@@ -33,6 +34,7 @@ namespace BlazorBattles.Client
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
             builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
+            builder.Services.AddScoped<IBattleService, BattleService>();
 
             await builder.Build().RunAsync();
         }
