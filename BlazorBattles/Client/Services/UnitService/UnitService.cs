@@ -13,23 +13,34 @@ namespace BlazorBattles.Client.Services.UnitService
     {
         private readonly IToastService _toastService;
         private readonly HttpClient _httpClient;
+        private readonly IBananaService _bananaService;
 
         public UnitService(IToastService toastService,
-            HttpClient httpClient)
+            HttpClient httpClient,
+            IBananaService bananaService)
         {
             _toastService = toastService;
             _httpClient = httpClient;
+            _bananaService = bananaService;
         }
 
         public IList<Unit> Units { get; set; } = new List<Unit>();
 
         public IList<UserUnit> MyUnits { get; set; } = new List<UserUnit>();
 
-        public void AddUnit(int unitId)
+        public async Task AddUnit(int unitId)
         {
             Unit unit = Units.First(unit => unit.Id == unitId);
-            MyUnits.Add(new UserUnit { UnitId = unit.Id, HitPoints = unit.HitPoints});
-            _toastService.ShowSuccess($"You {unit.Title} has been built!", "Unit built!");
+            var result = await _httpClient.PostAsJsonAsync<int>("api/UserUnit", unitId);
+            if (result.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                _toastService.ShowError(await result.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                await _bananaService.GetBananas();
+                _toastService.ShowSuccess($"You {unit.Title} has been built!", "Unit built!");
+            }            
         }
 
         public async Task LoadUnitsAsync()
