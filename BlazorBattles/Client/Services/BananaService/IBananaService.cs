@@ -15,6 +15,6 @@ namespace BlazorBattles.Client.Services
 
         void AddBananas(int amount);
 
-
+        Task GetBananas();
     }
 }
