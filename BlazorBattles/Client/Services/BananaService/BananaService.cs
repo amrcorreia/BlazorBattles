@@ -15,11 +15,10 @@ namespace BlazorBattles.Client.Services
         {
             _http = http;
         }
-        
+        public event Action OnChange;
         public int Bananas { get; set; } = 0;
 
-        public event Action OnChange;
-
+        
         public async Task AddBananas(int amount)
         {
             var result = await _http.PutAsJsonAsync<int>("api/User/AddBananas", amount);
